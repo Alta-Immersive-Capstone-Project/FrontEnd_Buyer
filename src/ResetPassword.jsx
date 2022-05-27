@@ -1,15 +1,15 @@
 import React from "react";
 import { Form, Button, Link } from "react-bootstrap";
-import "./styles/login.css";
+import "./styles/reset.css";
 
-function login() {
+function Reset() {
   return (
     <div className="container">
-      <div className="login-body">
-        <div className="login-border">
-          <div className="login-wrap">
-            <div className="login-title">
-              <h2>Logo</h2>
+      <div className="reset-body">
+        <div className="reset-border">
+          <div className="reset-wrap">
+            <div className="reset-title">
+              <h2>Reset Password</h2>
             </div>
             <Form>
               <Form.Group className="mb-3" controlId="formBasicName">
@@ -20,18 +20,9 @@ function login() {
                 <Form.Control type="password" placeholder="Password!" />
               </Form.Group>
 
-              <div className="login-forgot">
-                <p>Forgot Password?</p>
-              </div>
-
-              <Button className="login-button" size="l">
+              <Button className="reset-button" size="l">
                 Login
               </Button>
-
-              <div className="login-register">
-                <p>Don't have an account?</p>
-                <span className="login-regis"> Register</span>
-              </div>
             </Form>
           </div>
         </div>
@@ -40,4 +31,4 @@ function login() {
   );
 }
 
-export default login;
+export default Reset;
