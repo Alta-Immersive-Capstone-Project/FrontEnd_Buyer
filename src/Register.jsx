@@ -4,7 +4,7 @@ import "./styles/register.css";
 
 function Register() {
   return (
-    <div>
+    <div className="container">
       <div className="register-body">
         <div className="register-border">
           <div className="register-wrap">
