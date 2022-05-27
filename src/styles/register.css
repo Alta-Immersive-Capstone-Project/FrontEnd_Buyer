@@ -1,0 +1,38 @@
+.register-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+
+.register-border{
+    border-style: solid;
+    border-radius: 30px;
+    width: 80vh;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-wrap{
+    width: 60vh;
+}
+
+.register-label{
+    display: flex;
+    justify-content: left;
+}
+
+.register-button{
+    width: 60vh;
+    background-color: #7669E4;
+    border-color: #7669E4;
+    color: #fff;
+}
+
+.register-button:hover {
+    border-color: #85586F;
+    background-color: #85586F;
+}
