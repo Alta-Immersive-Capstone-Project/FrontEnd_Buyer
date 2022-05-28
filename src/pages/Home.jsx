@@ -32,6 +32,7 @@ function Home() {
   let price3 = "600000";
   let address = "Jl. M.H Thamrin No.10";
   let city = "Jakarta Pusat";
+
   return (
     <div>
       <Container className="py-5">
