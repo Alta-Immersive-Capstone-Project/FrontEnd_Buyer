@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
-import "./styles/register.css";
+import "../styles/register.css";
 
 function Register() {
   return (

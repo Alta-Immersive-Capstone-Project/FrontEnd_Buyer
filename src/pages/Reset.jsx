@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Button, Link } from "react-bootstrap";
-import "./styles/reset.css";
+import "../styles/reset.css";
 
 function Reset() {
   return (

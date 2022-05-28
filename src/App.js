@@ -1,15 +1,16 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/App.css";
-import Register from "./Register.jsx";
-import Login from "./login.jsx";
-import Reset from "./Reset.jsx";
-import ResetPassword from "./ResetPassword.jsx";
+import Register from "./pages/Register.jsx";
+import Login from "./pages/login.jsx";
+import Reset from "./pages/Reset.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 
 function App() {
   return (
     <div className="App">
-      {/* <Register /> */}
-      {/* <Login /> */}
+      {/* <Register />
+      <Login />
+      <Reset /> */}
       <ResetPassword />
     </div>
   );
