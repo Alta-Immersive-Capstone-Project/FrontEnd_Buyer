@@ -7,11 +7,14 @@ import Login from "./pages/login.jsx";
 import Reset from "./pages/Reset.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import Profile from "./pages/Profile";
+import Footer from "./components/Footer.jsx";
+import Navbar from "./components/Navbar.jsx";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -20,6 +23,7 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );
