@@ -1,8 +1,8 @@
 import React from "react";
 import { Card, Container, Form, Button, ProgressBar } from "react-bootstrap";
-import "./Detail.css";
+import "../styles/detail.css";
 
-import kost1 from "../../images/kost1.svg";
+import kost1 from "../images/kost1.svg";
 // import Star from "../../images/Star.svg";
 
 export default function Detail() {
