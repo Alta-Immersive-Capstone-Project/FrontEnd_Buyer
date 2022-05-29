@@ -1,8 +1,31 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
 
-function login() {
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    const body = {
+      email,
+      password
+    }
+
+    axios.post('http://18.136.202.111:8000/login', body)
+      .then(data => {
+        localStorage.setItem('token', data.data.data);
+        navigate('/');
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   return (
     <div className="container">
       <div className="login-body">
@@ -13,24 +36,28 @@ function login() {
             </div>
             <Form>
               <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Control type="text" placeholder="Enter Your Email" />
+                <Form.Control type="text" placeholder="Enter Your Email" value={email} onChange={(e) => {
+                  setEmail(e.target.value);
+                }} />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Control type="password" placeholder="Password!" />
+                <Form.Control type="password" placeholder="Password!" value={password} onChange={(e) => {
+                  setPassword(e.target.value);
+                }} />
               </Form.Group>
 
               <div className="login-forgot">
-                <p>Forgot Password?</p>
+                <p className="cursor-pointer" onClick={() => navigate('/reset')}>Forgot Password?</p>
               </div>
 
-              <Button className="login-button" size="l">
+              <Button className="login-button" size="l" onClick={() => handleSubmit()}>
                 Login
               </Button>
 
               <div className="login-register">
                 <p>Don't have an account?</p>
-                <span className="login-regis"> Register</span>
+                <span className="login-regis cursor-pointer" onClick={() => navigate('/register')}> Register</span>
               </div>
             </Form>
           </div>
@@ -40,4 +67,4 @@ function login() {
   );
 }
 
-export default login;
+export default Login;
