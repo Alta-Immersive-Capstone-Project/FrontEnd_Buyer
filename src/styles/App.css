@@ -1,6 +1,6 @@
-.App {
+/* .App {
   text-align: center;
-}
+} */
 
 .App-logo {
   height: 40vmin;
@@ -32,7 +32,18 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.btn-primary, .btn-primary:active, .btn-primary:focus  {
+  background-color: #7669E4;
+  border-color: #7669E4;
+}
+
+.btn-primary:hover {
+  background-color: #8d83eb;
+  border-color: #8d83eb;
 }
