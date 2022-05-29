@@ -42,6 +42,7 @@
 .login-regis{
     color: #7669E4;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .login-button{
@@ -54,4 +55,8 @@
 .login-button:hover {
     border-color: #85586F;
     background-color: #85586F;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
