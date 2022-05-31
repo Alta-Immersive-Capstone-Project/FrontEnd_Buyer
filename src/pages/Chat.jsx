@@ -6,7 +6,18 @@ export default function Chat() {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('25291c8752d6889a668c'.{
+        cluster: "eu"
+    })
+
+    var channel = pusher.subcribe('chat');
+    channel.bind('message', function(data){
+        alert(JSON.stringify(data))
+    })
+  }, []);
 
   const submit = (e) => {
     e.preventDefault();
