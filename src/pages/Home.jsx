@@ -13,10 +13,7 @@ import axios from "axios";
 import "../styles/Home.css";
 
 import Star from "../images/Star.svg";
-import Jakpus from "../images/Jakpus.svg";
-import Jaktim from "../images/Jaktim.svg";
-import Jakbar from "../images/Jakbar.svg";
-import Jakut from "../images/Jakut.svg";
+
 import Jaksel from "../images/Jaksel.svg";
 
 // contoh image kos
@@ -24,6 +21,7 @@ import kost1 from "../images/kost1.svg";
 
 function Home() {
   const [rooms, setRooms] = useState([]);
+  const [city, setCity] = useState([]);
   const [sort, setSort] = useState("");
 
   const navigate = useNavigate();
@@ -41,8 +39,19 @@ function Home() {
             },
           }
         );
+        const { data: response2 } = await axios.get(
+          "http://18.136.202.111:8000/cities",
+
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        );
         setRooms(response.data);
-        console.log(response);
+        setCity(response2.data);
+
+        console.log(response2);
       } catch (error) {
         console.log(error);
       }
@@ -63,6 +72,27 @@ function Home() {
       return rooms.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
     } else {
       return rooms;
+    }
+  };
+
+  // select city
+  const getHouseByCity = async (id) => {
+    try {
+      const { data: response } = await axios.get(
+        `http://18.136.202.111:8000/cities/${id}/districts/houses`,
+
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+
+      setRooms(response.data);
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -87,7 +117,7 @@ function Home() {
 
         <div className="d-flex justify-content-start flex-wrap gap-3">
           {roomsToShow()?.map((el, i) => (
-            <div key={i}>
+            <div style={{ cursor: "pointer" }} key={i}>
               <Card className="mx-2" style={{ width: "18rem" }}>
                 <Card.Img
                   variant="top"
@@ -126,56 +156,24 @@ function Home() {
           <h3>Location</h3>
 
           <div className="d-flex flex-wrap">
-            <Card className="text-white text-center m-2">
-              <Card.Img
-                className="img-location"
-                src={Jakpus}
-                alt="Card image"
-              />
-              <Card.ImgOverlay className="blur">
-                <Card.Title className="mt-3">Jakarta Pusat</Card.Title>
-              </Card.ImgOverlay>
-            </Card>
+            {city.map((el, i) => (
+              <div style={{ cursor: "pointer" }} key={i}>
+                <Card
+                  className="text-white text-center m-2"
+                  onClick={() => getHouseByCity(el.id)}
+                >
+                  <Card.Img
+                    className="img-location"
+                    src={Jaksel}
+                    alt="Card image"
+                  />
 
-            <Card className="text-white text-center m-2">
-              <Card.Img
-                className="img-location"
-                src={Jaktim}
-                alt="Card image"
-              />
-              <Card.ImgOverlay className="blur">
-                <Card.Title className="mt-3">Jakarta Timur</Card.Title>
-              </Card.ImgOverlay>
-            </Card>
-
-            <Card className="text-white text-center m-2">
-              <Card.Img
-                className="img-location"
-                src={Jakbar}
-                alt="Card image"
-              />
-              <Card.ImgOverlay className="blur">
-                <Card.Title className="mt-3">Jakarta Barat</Card.Title>
-              </Card.ImgOverlay>
-            </Card>
-
-            <Card className="text-white text-center m-2">
-              <Card.Img className="img-location" src={Jakut} alt="Card image" />
-              <Card.ImgOverlay className="blur">
-                <Card.Title className="mt-3">Jakarta Utara</Card.Title>
-              </Card.ImgOverlay>
-            </Card>
-
-            <Card className="text-white text-center m-2">
-              <Card.Img
-                className="img-location"
-                src={Jaksel}
-                alt="Card image"
-              />
-              <Card.ImgOverlay className="blur">
-                <Card.Title className="mt-3">Jakarta Selatan</Card.Title>
-              </Card.ImgOverlay>
-            </Card>
+                  <Card.ImgOverlay className="blur">
+                    <Card.Title className="mt-3">{el.city_name}</Card.Title>
+                  </Card.ImgOverlay>
+                </Card>
+              </div>
+            ))}
           </div>
         </div>
       </Container>
