@@ -43,7 +43,7 @@
     color: #2C2282;
 }
 
-.navbar-title.active{
+.navbar-title:active{
     color: #2C2282 !important;
 }
 

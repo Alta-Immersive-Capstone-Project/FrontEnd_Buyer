@@ -5,26 +5,27 @@ import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
   const handleSubmit = () => {
     const body = {
       email,
-      password
-    }
+      password,
+    };
 
-    axios.post('http://18.136.202.111:8000/login', body)
-      .then(data => {
-        localStorage.setItem('token', data.data.data);
-        navigate('/');
+    axios
+      .post("http://18.136.202.111:8000/login", body)
+      .then((data) => {
+        localStorage.setItem("token", data.data.data);
+        navigate("/");
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
-      })
-  }
+      });
+  };
 
   return (
     <div className="container">
@@ -36,28 +37,53 @@ function Login() {
             </div>
             <Form>
               <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Control type="text" placeholder="Enter Your Email" value={email} onChange={(e) => {
-                  setEmail(e.target.value);
-                }} />
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Your Email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Control type="password" placeholder="Password!" value={password} onChange={(e) => {
-                  setPassword(e.target.value);
-                }} />
+                <Form.Control
+                  type="password"
+                  placeholder="Password!"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
               </Form.Group>
 
               <div className="login-forgot">
-                <p className="cursor-pointer" onClick={() => navigate('/reset')}>Forgot Password?</p>
+                <p
+                  className="cursor-pointer"
+                  onClick={() => navigate("/reset")}
+                >
+                  Forgot Password?
+                </p>
               </div>
 
-              <Button className="login-button" size="l" onClick={() => handleSubmit()}>
+              <Button
+                className="login-button"
+                size="l"
+                onClick={() => handleSubmit()}
+              >
                 Login
               </Button>
 
               <div className="login-register">
                 <p>Don't have an account?</p>
-                <span className="login-regis cursor-pointer" onClick={() => navigate('/register')}> Register</span>
+                <span
+                  className="login-regis cursor-pointer"
+                  onClick={() => navigate("/register")}
+                >
+                  {" "}
+                  Register
+                </span>
               </div>
             </Form>
           </div>
