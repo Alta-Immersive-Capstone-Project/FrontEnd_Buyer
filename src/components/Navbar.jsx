@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Navbar,
   Container,
@@ -8,8 +8,38 @@ import {
   FormControl,
 } from "react-bootstrap";
 import "../styles/Navbar.css";
+import { useNavigate } from "react-router-dom";
 
 function NavbarComponent() {
+  const navigate = useNavigate();
+
+  const authToken = localStorage.getItem("token");
+
+  const clickRegister = () => {
+    navigate("/register");
+  };
+
+  const clickLogin = () => {
+    navigate("/Login");
+  };
+
+  const clickProfile = () => {
+    navigate("/profile");
+  };
+
+  const clickChat = () => {
+    navigate("/#");
+  };
+
+  const clickHistory = () => {
+    navigate("/history");
+  };
+
+  const clickLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
   return (
     <div className="navbar-body">
       <div className="navbar-wrap">
@@ -37,18 +67,34 @@ function NavbarComponent() {
                   style={{ maxHeight: "100px" }}
                   navbarScroll
                 >
-                  <Nav.Link className="navbar-title" href="#action1">
-                    Profile
-                  </Nav.Link>
-                  <Nav.Link className="navbar-title" href="#action2">
-                    Chat
-                  </Nav.Link>
-                  <Nav.Link className="navbar-title" href="#">
-                    History
-                  </Nav.Link>
-                  <Nav.Link className="navbar-title active" href="#">
-                    Logout
-                  </Nav.Link>
+                  {authToken ? (
+                    <>
+                      <Nav.Link className="navbar-title" onClick={clickProfile}>
+                        Profile
+                      </Nav.Link>
+                      <Nav.Link className="navbar-title" onClick={clickChat}>
+                        Chat
+                      </Nav.Link>
+                      <Nav.Link className="navbar-title" onClick={clickHistory}>
+                        History
+                      </Nav.Link>
+                      <Nav.Link className="navbar-title" onClick={clickLogout}>
+                        Logout
+                      </Nav.Link>
+                    </>
+                  ) : (
+                    <>
+                      <Nav.Link
+                        className="navbar-title"
+                        onClick={clickRegister}
+                      >
+                        Register
+                      </Nav.Link>
+                      <Nav.Link className="navbar-title" onClick={clickLogin}>
+                        Login
+                      </Nav.Link>{" "}
+                    </>
+                  )}
                 </Nav>
               </Form>
             </Navbar.Collapse>
