@@ -23,14 +23,13 @@ import Jaksel from "../images/Jaksel.svg";
 import kost1 from "../images/kost1.svg";
 
 function Home() {
-  const [loading, setLoading] = useState(true);
   const [rooms, setRooms] = useState([]);
+  const [sort, setSort] = useState("");
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       console.log(localStorage.getItem("token"));
       try {
         const { data: response } = await axios.get(
@@ -47,44 +46,62 @@ function Home() {
       } catch (error) {
         console.log(error);
       }
-      setLoading(false);
     };
 
     fetchData();
   }, []);
 
+  // dropdown price
+  useEffect(() => {
+    console.log(sort);
+  }, [sort]);
+
+  const roomsToShow = () => {
+    if (sort === "LOWEST") {
+      return rooms.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+    } else if (sort === "HIGHEST") {
+      return rooms.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+    } else {
+      return rooms;
+    }
+  };
+
   return (
     <div>
       <Container className="py-5">
-        <ButtonGroup>
+        <ButtonGroup className="mb-3">
           <DropdownButton
             as={ButtonGroup}
             title="Sort by"
             id="bg-nested-dropdown"
             variant="light"
           >
-            <Dropdown.Item eventKey="1">lowest price</Dropdown.Item>
-            <Dropdown.Item eventKey="2">highest price</Dropdown.Item>
+            <Dropdown.Item eventKey="1" onClick={() => setSort("LOWEST")}>
+              lowest price
+            </Dropdown.Item>
+            <Dropdown.Item eventKey="2" onClick={() => setSort("HIGHEST")}>
+              highest price
+            </Dropdown.Item>
           </DropdownButton>
         </ButtonGroup>
-        <div className="d-flex gap-3">
-          {rooms.map((el, i) => (
+
+        <div className="d-flex justify-content-start flex-wrap gap-3">
+          {roomsToShow()?.map((el, i) => (
             <div key={i}>
               <Card className="mx-2" style={{ width: "18rem" }}>
                 <Card.Img
                   variant="top"
                   src={kost1}
                   onClick={() => {
-                    navigate(`/detail`);
+                    navigate(`/detail/${el.house_id}`);
                   }}
                 />
                 <Card.Body>
-                  <div className="d-flex justify-content-between gap-2">
+                  <div className="d-flex justify-content-between">
                     <Card.Title>{el.title}</Card.Title>
                     <Card.Title>
-                      <img src={Star} alt="" />
+                      <img src={Star} alt="" /> {el.rating}
                     </Card.Title>
-                    <Card.Title>{el.rating}</Card.Title>
                   </div>
                   <div className="d-flex justify-content-between gap-2">
                     <div>

@@ -8,6 +8,7 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+
 import "../styles/detail.css";
 
 import kost1 from "../images/kost1.svg";
