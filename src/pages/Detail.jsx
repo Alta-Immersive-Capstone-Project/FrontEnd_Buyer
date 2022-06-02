@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   Container,
@@ -12,6 +12,7 @@ import "../styles/detail.css";
 
 import kost1 from "../images/kost1.svg";
 import Star from "../images/Star.svg";
+import axios from "axios";
 
 export default function Detail() {
   return (
