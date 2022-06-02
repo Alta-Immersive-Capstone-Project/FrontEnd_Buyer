@@ -24,7 +24,7 @@ function Register() {
       phone
     }
 
-    axios.post('http://18.136.202.111:8000/customer', body)
+    axios.post(`${URL}/customer`, body)
       .then(data => {
         setMessage(data.data.message);
       })

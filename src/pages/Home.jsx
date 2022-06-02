@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { URL } from "../components/URL";
 
 import "../styles/Home.css";
 
@@ -31,7 +32,7 @@ function Home() {
       console.log(localStorage.getItem("token"));
       try {
         const { data: response } = await axios.get(
-          "http://18.136.202.111:8000/houses/search",
+          `${URL}/houses/search`,
 
           {
             headers: {
@@ -40,7 +41,7 @@ function Home() {
           }
         );
         const { data: response2 } = await axios.get(
-          "http://18.136.202.111:8000/cities",
+          `${URL}/cities`,
 
           {
             headers: {
@@ -79,7 +80,7 @@ function Home() {
   const getHouseByCity = async (id) => {
     try {
       const { data: response } = await axios.get(
-        `http://18.136.202.111:8000/cities/${id}/districts/houses`,
+        `${URL}/cities/${id}/districts/houses`,
 
         {
           headers: {
