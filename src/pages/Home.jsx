@@ -29,7 +29,6 @@ function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(localStorage.getItem("token"));
       try {
         const { data: response } = await axios.get(
           `${URL}/houses/search`,
@@ -52,7 +51,6 @@ function Home() {
         setRooms(response.data);
         setCity(response2.data);
 
-        console.log(response2);
       } catch (error) {
         console.log(error);
       }
@@ -63,7 +61,7 @@ function Home() {
 
   // dropdown price
   useEffect(() => {
-    console.log(sort);
+
   }, [sort]);
 
   const roomsToShow = () => {

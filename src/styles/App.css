@@ -38,7 +38,9 @@
   }
 }
 
-.btn-primary, .btn-primary:active, .btn-primary:focus  {
+.btn-primary,
+.btn-primary:active,
+.btn-primary:focus {
   background-color: #7669E4;
   border-color: #7669E4;
 }
@@ -46,4 +48,8 @@
 .btn-primary:hover {
   background-color: #8d83eb;
   border-color: #8d83eb;
+}
+
+.text-primary {
+  color: #7669E4 !important;
 }
