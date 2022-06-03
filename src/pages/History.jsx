@@ -6,7 +6,7 @@ import { Dropdown, FormControl } from "react-bootstrap";
 function History() {
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <div
-      href=""
+      href="/#"
       ref={ref}
       onClick={(e) => {
         e.preventDefault();
