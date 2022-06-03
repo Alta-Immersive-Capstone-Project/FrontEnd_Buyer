@@ -17,7 +17,7 @@ function Login() {
     };
 
     axios
-      .post("http://18.136.202.111:8000/login", body)
+      .post(`${URL}/login`, body)
       .then((data) => {
         localStorage.setItem("token", data.data.data);
         navigate("/");
