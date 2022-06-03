@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Card,
   Container,
@@ -13,42 +13,153 @@ import "../styles/detail.css";
 
 import kost1 from "../images/kost1.svg";
 import Star from "../images/Star.svg";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Detail() {
+  const [namakost, setNamakost] = useState();
+  const [address, setAddress] = useState();
+  const [type, setType] = useState();
+  const [available, setAvailable] = useState();
+  const [date, setDate] = useState();
+  const [period, setPeriod] = useState();
+
+  const navigate = useNavigate();
+
+  const [dummy, setDummy] = useState([
+    {
+      room_id: 1,
+      ukuran: "3x3",
+      aminities: {
+        bathroom: "yes",
+        Listrik: "yes",
+        wifi: "yes",
+        kasur: "yes",
+        Kamar_mandi: "yes",
+      },
+    },
+    {
+      room_id: 2,
+      ukuran: "3x3",
+      price: 900000,
+      aminities: {
+        bathroom: "yes",
+        Listrik: "yes",
+        wifi: "yes",
+        kasur: "yes",
+        Kamar_mandi: "yes",
+      },
+    },
+  ]);
+  const [dami, setDami] = useState("0");
+  const valueDummy = useMemo(() => {
+    return dummy[dami];
+  }, [dummy, dami]);
+
+  console.log(valueDummy);
+
+  const params = useParams();
+
+  useEffect(() => {
+    axios
+      .get(`http://18.136.202.111:8000/houses/${params.id}`)
+      .then((data) => {
+        setNamakost(data.data.data.title);
+        setAddress(data.data.data.address);
+        setType(data.data.data.type);
+        setAvailable(data.data.data.available);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const roomValue = (e) => {
+    const value = e.target.value;
+    setDami(value);
+  };
+
+  const changeDate = (e) => {
+    const value = e.target.value;
+    setDate(value);
+  };
+
+  const changePeriod = (e) => {
+    const value = e.target.value;
+    setPeriod(value);
+  };
+
+  const clickAsk = () => {
+    localStorage.setItem("date", date);
+    localStorage.setItem("period", period);
+  };
+
   return (
     <>
       <Container className="py-5">
         <Card className="d-flex px-5">
           <Card.Img className="img-fluid" variant="top" src={kost1} />
           {/* baris 1 */}
-          <div className="d-flex  justify-content-between py-3">
-            <h4>Puri Bunga Nirwana</h4>
-            <div>
-              <h4>Male/Female</h4>
-              <p>2 Rooms Available</p>
+          <div className="mt-4">
+            <div className="container">
+              <Row>
+                <Col xs={4}>
+                  <div>
+                    <h4>{namakost}</h4>
+                    <h6>{address}</h6>
+                    <h6>City</h6>
+                  </div>
+                </Col>
+                <Col xs={8}>
+                  <h4>{type}</h4>
+                  <h6>{available} rooms available</h6>
+                </Col>
+              </Row>
             </div>
-            <div></div>
           </div>
 
           {/* baris 2 */}
           <div className="d-flex justify-content-between py-3">
             <div>
               <h4>Facilities</h4>
-              <p>Termasuk Listrik</p>
-              <p>Luas Kamar 3x3</p>
-              <p>Kamar Mandi Dalam</p>
-              <p>Wifi</p>
-              <p>Kasur</p>
-              <p>Alamari</p>
+              <p>
+                {Object.entries(valueDummy.aminities)
+                  .filter(([_, value]) => value === "yes")
+                  .map(([key]) => (
+                    <p> {key} </p>
+                  ))}
+              </p>
             </div>
             <Form>
               <Form.Group controlId="formBasicPassword">
-                <Form.Control type="date" placeholder="date" />
+                <Form.Select
+                  aria-label="Default select example"
+                  className="mb-2"
+                  onChange={roomValue}
+                  value={dami}
+                >
+                  {dummy.map((el, i) => {
+                    return (
+                      <option value={i} key={i}>
+                        room {el.room_id}
+                      </option>
+                    );
+                  })}
+                </Form.Select>
+                <Form.Control
+                  type="date"
+                  placeholder="date"
+                  onChange={changeDate}
+                  value={date}
+                />
                 <div className="d-flex mt-2">
                   <Form.Control
                     className="rentPeriod me-3"
                     type="text"
                     placeholder="Rent Period"
+                    onChange={changePeriod}
+                    value={period}
                   />
                   <div>
                     <p>Start From</p>
@@ -57,7 +168,7 @@ export default function Detail() {
                 </div>
               </Form.Group>
               <div className="d-grid gap-2">
-                <Button className="btnOffering" type="submit">
+                <Button className="btnOffering" onClick={clickAsk}>
                   Ask for Offer
                 </Button>
               </div>

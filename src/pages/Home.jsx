@@ -29,6 +29,7 @@ function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(localStorage.getItem("token"));
       try {
         const { data: response } = await axios.get(
           `${URL}/houses/search`,
