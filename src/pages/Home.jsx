@@ -29,7 +29,6 @@ function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(localStorage.getItem("token"));
       try {
         const { data: response } = await axios.get(
           `${URL}/houses/search`,
@@ -90,7 +89,6 @@ function Home() {
 
       setRooms(response.data);
 
-      console.log(response);
     } catch (error) {
       console.log(error);
     }

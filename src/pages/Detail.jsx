@@ -73,7 +73,7 @@ export default function Detail() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [params]);
 
   const roomValue = (e) => {
     const value = e.target.value;

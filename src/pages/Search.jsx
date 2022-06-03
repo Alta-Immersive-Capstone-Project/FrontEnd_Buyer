@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
 import kost from "../images/kost1.svg";
 import axios from 'axios';
 import { URL } from '../components/URL';
+import { useNavigate } from 'react-router-dom';
 
 function Search() {
     const [house, setHouse] = useState([]);
@@ -12,6 +13,8 @@ function Search() {
     const globalPosts = useSelector(state => state.posts.posts);
     const globalCity = useSelector(state => state.posts.city_id);
     const globalDistrict = useSelector(state => state.posts.district_id);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (globalCity.length !== 0) {
@@ -61,7 +64,7 @@ function Search() {
                                     <div className='d-flex'>
                                         <p className='border rounded px-2 text-capitalize'>{el.type}</p>
                                     </div>
-                                    <h5><strong>{el.title}</strong></h5>
+                                    <h5 className='cursor-pointer' onClick={() => navigate(`/detail/${el.house_id}`)}><strong>{el.title}</strong></h5>
                                     <p className='small text-secondary'>{el.address}</p>
                                     <div className='d-flex justify-content-between align-items-end'>
                                         <h6>4.6</h6>

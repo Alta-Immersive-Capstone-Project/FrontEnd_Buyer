@@ -23,6 +23,8 @@ function NavbarComponent() {
   const [district, setDistrict] = useState([]);
   const [districtDropdown, setDistrictDropdown] = useState('District');
 
+  const authToken = localStorage.getItem("token");
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -112,7 +114,7 @@ function NavbarComponent() {
     <>
       <Navbar>
         <Container >
-          <Navbar.Brand href="#" className="text-primary"><b>Sewa Kost</b></Navbar.Brand>
+          <Navbar.Brand className="text-primary cursor-pointer" onClick={() => navigate('/')}><b>Sewa Kost</b></Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -164,16 +166,36 @@ function NavbarComponent() {
 
                 <Button onClick={() => navigate('/search')}>Search</Button>
               </div>
-              <div className="d-flex justify-content-center gap-2 me-5">
-                <Nav.Link href="#action1" className="text-primary">Login</Nav.Link>
-                <Nav.Link href="#action2" className="text-primary">Register</Nav.Link>
-              </div>
+              {authToken ? (
+                <div className="d-flex justify-content-center gap-2 me-5">
+                  <Nav.Link className="navbar-title">
+                    Profile
+                  </Nav.Link>
+                  <Nav.Link className="navbar-title">
+                    Chat
+                  </Nav.Link>
+                  <Nav.Link className="navbar-title">
+                    History
+                  </Nav.Link>
+                  <Nav.Link className="navbar-title" onClick={() => {
+                    localStorage.clear();
+                    navigate('/login')
+                  }}>
+                    Logout
+                  </Nav.Link>
+                </div>
+              ) : (
+                <div className="d-flex justify-content-center gap-2 me-5">
+                  <Nav.Link className="text-primary" onClick={() => navigate('/login')}>Login</Nav.Link>
+                  <Nav.Link className="text-primary" onClick={() => navigate('/register')}>Register</Nav.Link>
+                </div>
+              )}
             </Nav>
           </Navbar.Collapse>
 
 
         </Container>
-      </Navbar>
+      </Navbar >
       <div className="w-100 navbar-block"></div>
     </>
   );

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import {URL} from '../components/URL'
 import "../styles/login.css";
 
 function Login() {
@@ -19,7 +20,7 @@ function Login() {
     axios
       .post(`${URL}/login`, body)
       .then((data) => {
-        localStorage.setItem("token", data.data.data);
+        localStorage.setItem("token", data.data.data.token);
         navigate("/");
       })
       .catch((err) => {
