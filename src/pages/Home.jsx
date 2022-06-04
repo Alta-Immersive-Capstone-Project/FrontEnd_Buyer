@@ -15,7 +15,7 @@ import "../styles/Home.css";
 
 import Star from "../images/Star.svg";
 
-import Jaksel from "../images/Jaksel.svg";
+import Jaksel from "../images/kota.jpg";
 
 // contoh image kos
 import kost1 from "../images/kost1.svg";
@@ -50,7 +50,6 @@ function Home() {
         );
         setRooms(response.data);
         setCity(response2.data);
-
       } catch (error) {
         console.log(error);
       }
@@ -60,9 +59,7 @@ function Home() {
   }, []);
 
   // dropdown price
-  useEffect(() => {
-
-  }, [sort]);
+  useEffect(() => {}, [sort]);
 
   const roomsToShow = () => {
     if (sort === "LOWEST") {
@@ -88,7 +85,6 @@ function Home() {
       );
 
       setRooms(response.data);
-
     } catch (error) {
       console.log(error);
     }

@@ -21,6 +21,7 @@ function Login() {
       .post(`${URL}/login`, body)
       .then((data) => {
         localStorage.setItem("token", data.data.data.token);
+        console.log(data.data);
         navigate("/");
       })
       .catch((err) => {

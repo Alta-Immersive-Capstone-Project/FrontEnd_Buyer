@@ -206,7 +206,12 @@ function NavbarComponent() {
                 <div className="d-flex justify-content-center gap-2 me-5">
                   <Nav.Link className="navbar-title">Profile</Nav.Link>
                   <Nav.Link className="navbar-title">Chat</Nav.Link>
-                  <Nav.Link className="navbar-title">History</Nav.Link>
+                  <Nav.Link
+                    className="navbar-title"
+                    onClick={() => navigate("/history")}
+                  >
+                    History
+                  </Nav.Link>
                   <Nav.Link
                     className="navbar-title"
                     onClick={() => {

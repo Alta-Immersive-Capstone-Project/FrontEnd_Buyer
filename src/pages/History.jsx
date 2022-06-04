@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import user from "../images/user.png";
 import kost from "../images/kost1.svg";
 import { Dropdown, FormControl } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { URL as url } from "../components/URL";
 
 function History() {
+  const [histories, setHistories] = useState([]);
+
+  const navigate = useNavigate();
+
+  const params = useParams();
+
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <div
       href="/#"
@@ -47,6 +56,29 @@ function History() {
     }
   );
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: response } = await axios.get(
+          `${url}/transactions`,
+
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        );
+
+        setHistories(response.data);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [params]);
+
   return (
     <div className="container">
       <div className="row">
@@ -66,9 +98,13 @@ function History() {
                 <span className="ms-5">&#x25bc;</span>
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item href="#">Paid Off</Dropdown.Item>
-                <Dropdown.Item href="#">Pending</Dropdown.Item>
-                <Dropdown.Item href="#">Process</Dropdown.Item>
+                {histories.map((el, i) => (
+                  <div style={{ cursor: "pointer" }} key={i}>
+                    <Dropdown.Item onClick={() => histories(el.booking_id)}>
+                      {el.transaction_status}
+                    </Dropdown.Item>
+                  </div>
+                ))}
               </Dropdown.Menu>
             </Dropdown>
             <Dropdown>
@@ -94,98 +130,39 @@ function History() {
               </Dropdown.Menu>
             </Dropdown>
           </div>
-          <div className="mt-3 d-flex">
-            <img src={kost} alt="" className="rounded" />
-            <div className="w-100 px-3">
-              <div className="d-flex justify-content-between">
-                <h5>ID Booking</h5>
-                <h5>LALA0076234</h5>
+          {histories.map((el, i) => (
+            <div
+              style={{ cursor: "pointer" }}
+              key={i}
+              onClick={() => {
+                navigate(`/order/${el.booking_id}`);
+              }}
+            >
+              <div className="mt-3 d-flex">
+                <img src={kost} alt="" className="rounded" />
+                <div className="w-100 px-3">
+                  <div className="d-flex justify-content-between">
+                    <h5>ID Booking</h5>
+                    <h5>{el.booking_id}</h5>
+                  </div>
+                  <h4>{el.title}</h4>
+                  <div className="d-flex justify-content-between">
+                    <h6>Date Entry</h6>
+                    <h6>{el.check_in}</h6>
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <h6>Duration</h6>
+                    <h6>{el.duration} Month</h6>
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <h5>Rp. {el.price}</h5>
+                    <h5>{el.transaction_status}</h5>
+                  </div>
+                </div>
               </div>
-              <h4>Bunga Nirwana</h4>
-              <div className="d-flex justify-content-between">
-                <h6>Date Entry</h6>
-                <h6>Augt 24 2022</h6>
-              </div>
-              <div className="d-flex justify-content-between">
-                <h6>Duration</h6>
-                <h6>1 Month</h6>
-              </div>
-              <div className="d-flex justify-content-between">
-                <h5>Rp900.000</h5>
-                <h5>Process</h5>
-              </div>
+              <hr />
             </div>
-          </div>
-          <hr />
-          <div className="mt-3 d-flex">
-            <img src={kost} alt="" className="rounded" />
-            <div className="w-100 px-3">
-              <div className="d-flex justify-content-between">
-                <h5>ID Booking</h5>
-                <h5>LALA0076234</h5>
-              </div>
-              <h4>Bunga Nirwana</h4>
-              <div className="d-flex justify-content-between">
-                <h6>Date Entry</h6>
-                <h6>Augt 24 2022</h6>
-              </div>
-              <div className="d-flex justify-content-between">
-                <h6>Duration</h6>
-                <h6>1 Month</h6>
-              </div>
-              <div className="d-flex justify-content-between">
-                <h5>Rp900.000</h5>
-                <h5>Process</h5>
-              </div>
-            </div>
-          </div>
-          <hr />
-          <div className="mt-3 d-flex">
-            <img src={kost} alt="" className="rounded" />
-            <div className="w-100 px-3">
-              <div className="d-flex justify-content-between">
-                <h5>ID Booking</h5>
-                <h5>LALA0076234</h5>
-              </div>
-              <h4>Bunga Nirwana</h4>
-              <div className="d-flex justify-content-between">
-                <h6>Date Entry</h6>
-                <h6>Augt 24 2022</h6>
-              </div>
-              <div className="d-flex justify-content-between">
-                <h6>Duration</h6>
-                <h6>1 Month</h6>
-              </div>
-              <div className="d-flex justify-content-between">
-                <h5>Rp900.000</h5>
-                <h5>Process</h5>
-              </div>
-            </div>
-          </div>
-          <hr />
-          <div className="mt-3 d-flex">
-            <img src={kost} alt="" className="rounded" />
-            <div className="w-100 px-3">
-              <div className="d-flex justify-content-between">
-                <h5>ID Booking</h5>
-                <h5>LALA0076234</h5>
-              </div>
-              <h4>Bunga Nirwana</h4>
-              <div className="d-flex justify-content-between">
-                <h6>Date Entry</h6>
-                <h6>Augt 24 2022</h6>
-              </div>
-              <div className="d-flex justify-content-between">
-                <h6>Duration</h6>
-                <h6>1 Month</h6>
-              </div>
-              <div className="d-flex justify-content-between">
-                <h5>Rp900.000</h5>
-                <h5>Process</h5>
-              </div>
-            </div>
-          </div>
-          <hr />
+          ))}
         </div>
       </div>
     </div>
