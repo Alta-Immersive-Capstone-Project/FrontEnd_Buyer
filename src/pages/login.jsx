@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import {URL} from '../components/URL'
+import { URL } from "../components/URL";
 import "../styles/login.css";
 
 function Login() {
@@ -34,7 +34,7 @@ function Login() {
         <div className="login-border">
           <div className="login-wrap">
             <div className="login-title">
-              <h2>Logo</h2>
+              <h2>Login</h2>
             </div>
             <Form>
               <Form.Group className="mb-3" controlId="formBasicName">

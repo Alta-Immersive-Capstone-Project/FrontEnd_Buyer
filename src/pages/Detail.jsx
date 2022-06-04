@@ -24,40 +24,17 @@ export default function Detail() {
   const [available, setAvailable] = useState();
   const [date, setDate] = useState();
   const [period, setPeriod] = useState();
+  const [city, setCity] = useState();
+  const [allroom, setAllroom] = useState([]);
 
   const navigate = useNavigate();
 
-  const [dummy, setDummy] = useState([
-    {
-      room_id: 1,
-      ukuran: "3x3",
-      aminities: {
-        bathroom: "yes",
-        Listrik: "yes",
-        wifi: "yes",
-        kasur: "yes",
-        Kamar_mandi: "yes",
-      },
-    },
-    {
-      room_id: 2,
-      ukuran: "3x3",
-      price: 900000,
-      aminities: {
-        bathroom: "yes",
-        Listrik: "yes",
-        wifi: "yes",
-        kasur: "yes",
-        Kamar_mandi: "yes",
-      },
-    },
-  ]);
-  const [dami, setDami] = useState("0");
-  const valueDummy = useMemo(() => {
-    return dummy[dami];
-  }, [dummy, dami]);
+  const [dami, setDami] = useState(0);
+  const [room, setRoom] = useState(allroom[0]);
 
-  console.log(valueDummy);
+  const valueRoom = useMemo(() => {
+    return allroom[dami] || {};
+  }, [allroom, dami]);
 
   const params = useParams();
 
@@ -65,10 +42,13 @@ export default function Detail() {
     axios
       .get(`http://18.136.202.111:8000/houses/${params.id}`)
       .then((data) => {
-        setNamakost(data.data.data.title);
+        setNamakost(data?.data?.data?.title);
         setAddress(data.data.data.address);
         setType(data.data.data.type);
         setAvailable(data.data.data.available);
+        setCity(data.data.data.city_name);
+        setAllroom(data.data.data.Rooms);
+        setRoom(data.data.data.Rooms[0]);
       })
       .catch((err) => {
         console.log(err);
@@ -77,6 +57,8 @@ export default function Detail() {
 
   const roomValue = (e) => {
     const value = e.target.value;
+    // menambahkan data setiap room di dalam setRoom
+    setRoom(allroom[parseInt(value.substr(value.length - 1)) - 1]);
     setDami(value);
   };
 
@@ -93,8 +75,12 @@ export default function Detail() {
   const clickAsk = () => {
     localStorage.setItem("date", date);
     localStorage.setItem("period", period);
+    localStorage.setItem("price", room.price);
+
+    navigate("/history");
   };
 
+  // console.log("zap", room);
   return (
     <>
       <Container className="py-5">
@@ -108,7 +94,7 @@ export default function Detail() {
                   <div>
                     <h4>{namakost}</h4>
                     <h6>{address}</h6>
-                    <h6>City</h6>
+                    <h6>{city}</h6>
                   </div>
                 </Col>
                 <Col xs={8}>
@@ -124,11 +110,11 @@ export default function Detail() {
             <div>
               <h4>Facilities</h4>
               <p>
-                {Object.entries(valueDummy.aminities)
+                {/* {Object.entries(valueRoom.Amenities)
                   .filter(([_, value]) => value === "yes")
                   .map(([key]) => (
                     <p> {key} </p>
-                  ))}
+                  ))} */}
               </p>
             </div>
             <Form>
@@ -139,13 +125,9 @@ export default function Detail() {
                   onChange={roomValue}
                   value={dami}
                 >
-                  {dummy.map((el, i) => {
-                    return (
-                      <option value={i} key={i}>
-                        room {el.room_id}
-                      </option>
-                    );
-                  })}
+                  {allroom.map((el, id) => (
+                    <option>Room {el.id}</option>
+                  ))}
                 </Form.Select>
                 <Form.Control
                   type="date"
@@ -163,7 +145,7 @@ export default function Detail() {
                   />
                   <div>
                     <p>Start From</p>
-                    <p>Rp. 900.000</p>
+                    <p>Rp. {room?.price}</p>
                   </div>
                 </div>
               </Form.Group>
