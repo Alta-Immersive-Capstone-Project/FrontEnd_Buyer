@@ -31,6 +31,7 @@ export default function Detail() {
 
   const navigate = useNavigate();
 
+  // dami berfungsi untuk menyimpan data room id
   const [dami, setDami] = useState(0);
   const [room, setRoom] = useState(allroom[0]);
 
