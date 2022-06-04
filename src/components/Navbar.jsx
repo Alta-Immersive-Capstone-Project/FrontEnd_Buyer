@@ -211,7 +211,12 @@ function NavbarComponent() {
                     Profile
                   </Nav.Link>
                   <Nav.Link className="navbar-title">Chat</Nav.Link>
-                  <Nav.Link className="navbar-title">History</Nav.Link>
+                  <Nav.Link
+                    className="navbar-title"
+                    onClick={() => navigate("/history")}
+                  >
+                    History
+                  </Nav.Link>
                   <Nav.Link
                     className="navbar-title"
                     onClick={() => {
