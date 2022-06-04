@@ -48,15 +48,15 @@ function Search() {
 
     // MAPS
     const center = {
-        lat: -6.2,
-        lng: 106.816666,
+        lat: -6.905977,
+        lng: 107.613144,
     };
 
     return (
         <div className='container-fluid p-0'>
             <div className="row">
                 <div className="col-lg-6 ps-4">
-                    {house.map((el, i) => (
+                    {house === null ? ('') : house.map((el, i) => (
                         <div key={i}>
                             <div className='d-flex my-3 align-items-center'>
                                 <img src={kost} alt="Kost" className='rounded' />
@@ -79,15 +79,19 @@ function Search() {
 
                 <div className="col-lg-6 mx-auto">
                     <MapContainer center={center} zoom={13} scrollWheelZoom={true} zoomControl={false} attributionControl={false} className="map">
-                        <TileLayer
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
-                        <Marker position={center}>
-                            <Popup>
-                                A pretty CSS3 popup. <br /> Easily customizable.
-                            </Popup>
-                        </Marker>
+                        <div>
+                            <TileLayer
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
+                            {house === null ? ('') : house.map((el, i) => (
+                                <Marker key={i} position={{ lat: el.latitude, lng: el.longitude }}>
+                                    <Popup>
+                                        <h4>{el.title}</h4>
+                                    </Popup>
+                                </Marker>
+                            ))}
+                        </div>
                     </MapContainer>
                 </div>
             </div>
