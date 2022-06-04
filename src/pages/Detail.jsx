@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   Container,
@@ -11,7 +11,6 @@ import {
 
 import "../styles/detail.css";
 
-import kost1 from "../images/kost1.svg";
 import Star from "../images/Star.svg";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -26,17 +25,39 @@ export default function Detail() {
   const [period, setPeriod] = useState();
   const [city, setCity] = useState();
   const [allroom, setAllroom] = useState([]);
+  const [description, setDescription] = useState();
+
+  const [dataReview, setReview] = useState({});
 
   const navigate = useNavigate();
 
+  // dami berfungsi untuk menyimpan data room id
   const [dami, setDami] = useState(0);
   const [room, setRoom] = useState(allroom[0]);
 
-  const valueRoom = useMemo(() => {
-    return allroom[dami] || {};
-  }, [allroom, dami]);
+  // const valueRoom = useMemo(() => {
+  //   return allroom[dami] || {};
+  // }, [allroom, dami]);
 
   const params = useParams();
+
+  const average = () => {
+    const meta = {
+      five: 5,
+      four: 4,
+      three: 3,
+      two: 2,
+      one: 1,
+    };
+
+    if (dataReview.bintang) {
+      return Object.entries(dataReview.bintang).reduce(
+        (prev, [key, tot]) => prev + meta[key] * tot,
+        0
+      );
+    }
+    return 0;
+  };
 
   useEffect(() => {
     axios
@@ -47,8 +68,21 @@ export default function Detail() {
         setType(data.data.data.type);
         setAvailable(data.data.data.available);
         setCity(data.data.data.city_name);
+        setDescription(data.data.data.brief);
         setAllroom(data.data.data.Rooms);
         setRoom(data.data.data.Rooms[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
+      .get(`http://18.136.202.111:8000/houses/${params.id}/reviews`)
+      .then((data) => {
+        setReview({
+          data: data?.data?.data,
+          bintang: data?.data?.rating,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -79,13 +113,15 @@ export default function Detail() {
 
     navigate("/history");
   };
-
-  // console.log("zap", room);
   return (
     <>
       <Container className="py-5">
         <Card className="d-flex px-5">
-          <Card.Img className="img-fluid" variant="top" src={kost1} />
+          <Card.Img
+            className="img-fluid"
+            variant="top"
+            src={room?.Images[0]?.url}
+          />
           {/* baris 1 */}
           <div className="mt-4">
             <div className="container">
@@ -109,13 +145,7 @@ export default function Detail() {
           <div className="d-flex justify-content-between py-3">
             <div>
               <h4>Facilities</h4>
-              <p>
-                {/* {Object.entries(valueRoom.Amenities)
-                  .filter(([_, value]) => value === "yes")
-                  .map(([key]) => (
-                    <p> {key} </p>
-                  ))} */}
-              </p>
+              <p> Room Area {room?.type}</p>
             </div>
             <Form>
               <Form.Group controlId="formBasicPassword">
@@ -125,8 +155,8 @@ export default function Detail() {
                   onChange={roomValue}
                   value={dami}
                 >
-                  {allroom.map((el, id) => (
-                    <option>Room {el.id}</option>
+                  {allroom.map((el, i) => (
+                    <option key={i}>Room {el.id}</option>
                   ))}
                 </Form.Select>
                 <Form.Control
@@ -159,14 +189,17 @@ export default function Detail() {
 
           {/* baris 3 */}
           <div className="d-flex justify-content-between">
-            <div>
-              <h4>House Bording Rules</h4>
-              <p>Akses 24 Jam</p>
-              <p>Tamu Dilarang Menginap</p>
-            </div>
-            <div>
-              <h4>Contact Us</h4>
-            </div>
+            <Row>
+              <Col xs={4}>
+                <h4>Description</h4>
+                <p style={{ textAlign: "justify" }}>{description}</p>
+              </Col>
+              <Col xs={4} className="d-flex justify-content-end">
+                <div>
+                  <h4>Contact Us</h4>
+                </div>
+              </Col>
+            </Row>
           </div>
 
           {/* baris 4 */}
@@ -188,7 +221,7 @@ export default function Detail() {
             <div>
               <Row>
                 <Col className="text-center py-5" xs={3} md={2}>
-                  <h1>4.9</h1>
+                  <h1>{average()}</h1>
                 </Col>
                 <Col className="text-end" xs={3} md={2}>
                   <div className="d-flex justify-content-end">
@@ -213,23 +246,35 @@ export default function Detail() {
                   </div>
                 </Col>
                 <Col xs={6} md={4}>
-                  <ProgressBar variant="success" now={98} />
+                  <ProgressBar
+                    variant="success"
+                    now={dataReview?.bintang?.five * 20}
+                  />
                   <br />
-                  <ProgressBar variant="success" now={95} />
+                  <ProgressBar
+                    variant="success"
+                    now={dataReview?.bintang?.four * 20}
+                  />
                   <br />
-                  <ProgressBar variant="success" now={10} />
+                  <ProgressBar
+                    variant="success"
+                    now={dataReview?.bintang?.three * 20}
+                  />
                   <br />
-                  <ProgressBar variant="success" now={5} />
+                  <ProgressBar
+                    variant="success"
+                    now={dataReview?.bintang?.two * 20}
+                  />
                   <br />
-                  <ProgressBar variant="success" now={3} />
+                  <ProgressBar
+                    variant="success"
+                    now={dataReview?.bintang?.one * 20}
+                  />
                 </Col>
                 <Col xs={6} md={4}>
-                  <h4>Anonim</h4>
-                  <p>1 mount ago</p>
-                  <p>
-                    Tempatnya bagus, lokasinya dekat dengan apapun. Penjaganya
-                    ramah. boleh bawa teman menginap.
-                  </p>
+                  <h4>{dataReview.data?.[0]?.name}</h4>
+                  <p>1 month ago</p>
+                  <p>{dataReview.data?.[0]?.comment}</p>
                 </Col>
               </Row>
             </div>
