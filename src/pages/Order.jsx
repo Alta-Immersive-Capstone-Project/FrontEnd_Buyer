@@ -4,11 +4,12 @@ import { Container, Card, Button } from "react-bootstrap";
 import "../styles/order.css";
 import { URL as url } from "../components/URL";
 import { useNavigate } from "react-router-dom";
+
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 export default function Order() {
   const bookingDetail = useSelector((state) => state.booking.booking);
-
   const [ordered, setOrdered] = useState(bookingDetail);
 
   const navigate = useNavigate();
@@ -57,7 +58,10 @@ export default function Order() {
                       <p>Rental Duration</p>
                     </div>
                     <div className="ms-3">
-                      <p>{el.check_in}</p>
+                      <p>
+                        {moment(el.check_in).format("dddd")},
+                        {moment(el.check_in).format("LL")}
+                      </p>
                       <p>{el.duration} Month</p>
                     </div>
                   </div>
