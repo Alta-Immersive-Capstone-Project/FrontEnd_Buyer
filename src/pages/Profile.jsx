@@ -3,14 +3,16 @@ import "../styles/profile.css";
 import user from "../images/user.png";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { URL } from '../components/URL'
 
 function Profile() {
   const params = useParams();
   const [dataUser, setdataUser] = useState({});
 
   useEffect(() => {
+    document.title = `Profile | Sewa Kost`;
     axios
-      .get(`http://18.136.202.111:8000/customer/${params.id}`)
+      .get(`${URL}/customer/${params.id}`)
       .then((data) => {
         setdataUser(data.data.data);
       })

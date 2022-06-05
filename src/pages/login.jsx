@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { URL } from "../components/URL";
@@ -10,6 +10,10 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = `Login | Sewa Kost`;
+  });
 
   const handleSubmit = () => {
     const body = {

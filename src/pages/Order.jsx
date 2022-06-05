@@ -12,6 +12,7 @@ export default function Order() {
   const bookingDetail = useSelector(state => state.booking.booking);
 
   useEffect(() => {
+    document.title = `Order | Sewa Kost`;
     if (bookingDetail.length === 0) {
       navigate('/history')
     }

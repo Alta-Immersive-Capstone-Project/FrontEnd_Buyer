@@ -15,6 +15,7 @@ import Star from "../images/Star.svg";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { URL } from '../components/URL'
 
 export default function Detail() {
   const [namakost, setNamakost] = useState();
@@ -62,8 +63,9 @@ export default function Detail() {
   };
 
   useEffect(() => {
+    document.title = namakost ? `${namakost} | Sewa Kost` : 'Sewa Kost';
     axios
-      .get(`http://18.136.202.111:8000/houses/${params.id}`)
+      .get(`${URL}/houses/${params.id}`)
       .then((data) => {
         setNamakost(data?.data?.data?.title);
         setAddress(data.data.data.address);
@@ -79,7 +81,7 @@ export default function Detail() {
       });
 
     axios
-      .get(`http://18.136.202.111:8000/houses/${params.id}/reviews`)
+      .get(`${URL}/houses/${params.id}/reviews`)
       .then((data) => {
         setReview({
           data: data?.data?.data,
@@ -89,7 +91,7 @@ export default function Detail() {
       .catch((err) => {
         console.log(err);
       });
-  }, [params]);
+  }, [params, namakost]);
 
   const roomValue = (e) => {
     const value = e.target.value;
@@ -123,7 +125,7 @@ export default function Detail() {
     };
 
     axios
-      .post("http://18.136.202.111:8000/transactions", body, {
+      .post(`${URL}/transactions`, body, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((data) => {

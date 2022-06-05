@@ -18,6 +18,7 @@ function History() {
   const navigate = useNavigate()
 
   useEffect(() => {
+    document.title = `History | Sewa Kost`;
     const fetchData = async () => {
       try {
         const { data: response } = await axios.get(

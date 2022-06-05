@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {URL} from '../components/URL'
@@ -18,6 +18,10 @@ function Register() {
 
   // const [confirmPassword, setConfirmPassword] = useState('');
   const [genderDisable, setGenderDisable] = useState(false);
+
+  useEffect(()=> {
+    document.title = `Register | Sewa Kost`;
+  })
 
   const handleSubmit = () => {
     const body = {

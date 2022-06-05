@@ -16,6 +16,7 @@ function Search() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        document.title = `Search | Sewa Kost`;
         if (globalCity.length !== 0) {
             if (globalDistrict.length !== 0) {
                 axios.get(`${URL}/cities/${globalCity}/districts/${globalDistrict}/houses`)
