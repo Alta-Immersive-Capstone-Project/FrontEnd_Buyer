@@ -138,11 +138,14 @@ export default function Detail() {
     <>
       <Container className="py-5">
         <Card className="d-flex px-5">
-          <Card.Img
-            className="img-fluid"
-            variant="top"
-            src={room?.Images[0]?.url}
-          />
+          <div className="overflow-hidden d-flex justify-content-center">
+            <Card.Img
+              className="img-fluid"
+              variant="top"
+              src={room?.Images[0]?.url}
+              style={{ width: "800px" }}
+            />
+          </div>
           {/* baris 1 */}
           <div className="mt-4">
             <div className="container">
