@@ -5,8 +5,12 @@ import "../styles/order.css";
 import { URL as url } from "../components/URL";
 import { useNavigate } from "react-router-dom";
 
+import { useSelector } from "react-redux";
+import moment from "moment";
+
 export default function Order() {
-  const [ordered, setOrdered] = useState([]);
+  const bookingDetail = useSelector((state) => state.booking.booking);
+  const [ordered, setOrdered] = useState(bookingDetail);
 
   const navigate = useNavigate();
 
@@ -24,7 +28,7 @@ export default function Order() {
         );
 
         setOrdered(response.data);
-        console.log(response);
+        console.log(setOrdered);
       } catch (error) {
         console.log(error);
       }
@@ -38,35 +42,6 @@ export default function Order() {
       <Container className="text-start py-3">
         <h3>Payment</h3>
 
-        {/* card 1
-        <Card className="p-3 mt-3">
-          <div className="d-flex justify-content-start">
-            <div>
-              <h5>User Details</h5>
-              <div className="">
-                <div className="d-flex">
-                  <div>
-                    <p>Name :</p>
-                    <p>Phone Number :</p>
-                    <h5>Payment Type</h5>
-                  </div>
-                  <div className="ms-4">
-                    <p>Alberto Robert</p>
-                    <p>08512345678</p>
-                    <Form.Select aria-label="Default select example">
-                      <option></option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </Form.Select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Card> */}
-
-        {/* card 2 */}
         {ordered.map((el, i) => (
           <div className="pt-3" style={{ cursor: "pointer" }} key={i}>
             <Card className="p-3">
@@ -83,8 +58,11 @@ export default function Order() {
                       <p>Rental Duration</p>
                     </div>
                     <div className="ms-3">
-                      <p>{el.check_in}</p>
-                      <p>{el.duration} Mounth</p>
+                      <p>
+                        {moment(el.check_in).format("dddd")},
+                        {moment(el.check_in).format("LL")}
+                      </p>
+                      <p>{el.duration} Month</p>
                     </div>
                   </div>
                 </div>

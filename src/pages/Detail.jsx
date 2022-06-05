@@ -22,10 +22,12 @@ export default function Detail() {
   const [type, setType] = useState();
   const [available, setAvailable] = useState();
   const [date, setDate] = useState();
-  const [period, setPeriod] = useState();
+  const [period, setPeriod] = useState("");
   const [city, setCity] = useState();
   const [allroom, setAllroom] = useState([]);
   const [description, setDescription] = useState();
+
+  const [price, setPrice] = useState();
 
   const [dataReview, setReview] = useState({});
 
@@ -106,22 +108,44 @@ export default function Detail() {
     setPeriod(value);
   };
 
-  const clickAsk = () => {
-    localStorage.setItem("date", date);
-    localStorage.setItem("period", period);
-    localStorage.setItem("price", room.price);
+  const changePrice = (e) => {
+    const value = e.target.value;
+    setPrice(value);
+  };
 
-    navigate("/history");
+  const clickAsk = () => {
+    const body = {
+      room_id: room?.id,
+      house_id: parseInt(params.id),
+      price: room?.price,
+      check_in: new Date(date).getTime(),
+      duration: parseInt(period),
+    };
+
+    console.log(localStorage.getItem("token"));
+    axios
+      .post("http://18.136.202.111:8000/transactions", body, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((data) => {
+        navigate("/history");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <>
       <Container className="py-5">
         <Card className="d-flex px-5">
-          <Card.Img
-            className="img-fluid"
-            variant="top"
-            src={room?.Images[0]?.url}
-          />
+          <div className="overflow-hidden d-flex justify-content-center">
+            <Card.Img
+              className="img-fluid"
+              variant="top"
+              src={room?.Images[0]?.url}
+              style={{ width: "800px" }}
+            />
+          </div>
           {/* baris 1 */}
           <div className="mt-4">
             <div className="container">
@@ -156,14 +180,15 @@ export default function Detail() {
                   value={dami}
                 >
                   {allroom.map((el, i) => (
-                    <option key={i}>Room {el.id}</option>
+                    <option value={"Room " + el.id} key={i}>
+                      Room {el.id}
+                    </option>
                   ))}
                 </Form.Select>
                 <Form.Control
                   type="date"
                   placeholder="date"
                   onChange={changeDate}
-                  value={date}
                 />
                 <div className="d-flex mt-2">
                   <Form.Control
@@ -175,7 +200,10 @@ export default function Detail() {
                   />
                   <div>
                     <p>Start From</p>
-                    <p>Rp. {room?.price}</p>
+                    <p onChange={changePrice} value={price}>
+                      {" "}
+                      Rp. {room?.price}
+                    </p>
                   </div>
                 </div>
               </Form.Group>
