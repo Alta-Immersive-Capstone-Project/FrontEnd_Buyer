@@ -17,9 +17,6 @@ import Star from "../images/Star.svg";
 
 import Jaksel from "../images/kota.jpg";
 
-// contoh image kos
-import kost1 from "../images/kost1.svg";
-
 function Home() {
   const [rooms, setRooms] = useState([]);
   const [city, setCity] = useState([]);
@@ -50,6 +47,7 @@ function Home() {
         );
         setRooms(response.data);
         setCity(response2.data);
+        console.log(response);
       } catch (error) {
         console.log(error);
       }
@@ -114,8 +112,9 @@ function Home() {
             <div style={{ cursor: "pointer" }} key={i}>
               <Card className="mx-2" style={{ width: "18rem" }}>
                 <Card.Img
+                  className="img-location"
                   variant="top"
-                  src={kost1}
+                  src={el.image}
                   onClick={() => {
                     navigate(`/detail/${el.house_id}`);
                   }}
@@ -123,9 +122,13 @@ function Home() {
                 <Card.Body>
                   <div className="d-flex justify-content-between">
                     <Card.Title>{el.title}</Card.Title>
-                    <Card.Title>
-                      <img src={Star} alt="" /> {el.rating}
+                    <Card.Title className="d-flex gap-2">
+                      <div>
+                        <img src={Star} alt="" />
+                      </div>
+                      <div>{el.rating}</div>
                     </Card.Title>
+                    <div></div>
                   </div>
                   <div className="d-flex justify-content-between gap-2">
                     <div>
