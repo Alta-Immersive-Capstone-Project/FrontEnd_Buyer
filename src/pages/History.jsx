@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import user from "../images/user.png";
 import { Button } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { URL as url } from "../components/URL";
 
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { setBooking } from '../store/transaction'
 
 function History() {
   const [histories, setHistories] = useState([]);
 
+  const dispatch = useDispatch();
+
   const params = useParams();
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,8 +30,7 @@ function History() {
           }
         );
 
-        setHistories(response.data);
-        console.log(response);
+        setHistories(response.data.reverse());
       } catch (error) {
         console.log(error);
       }
@@ -60,11 +64,11 @@ function History() {
 
         <div className="col-8">
           {histories.map((el, i) => (
-            <div style={{ cursor: "pointer" }} key={i}>
+            <div key={i}>
               <div className="mt-5 d-flex">
                 <img
                   src={el.url}
-                  style={{ width: "18rem" }}
+                  style={{ width: "28rem", height: "10rem" }}
                   alt=""
                   className="rounded"
                 />
@@ -91,7 +95,13 @@ function History() {
                   </div>
                   <div className="d-grid gap-2 mt-3">
                     {el.transaction_status === "pending" ? (
-                      <Button className="btnPay" href={el.redirect_url}>
+                      // <Button className="btnPay" href={el.redirect_url}>
+                      //   Pay
+                      // </Button>
+                      <Button className="btn btn-primary" onClick={() => {
+                        dispatch(setBooking(el))
+                        navigate('/order');
+                      }}>
                         Pay
                       </Button>
                     ) : (

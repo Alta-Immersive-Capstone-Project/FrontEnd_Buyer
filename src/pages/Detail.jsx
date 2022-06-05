@@ -122,7 +122,6 @@ export default function Detail() {
       duration: parseInt(period),
     };
 
-    console.log(localStorage.getItem("token"));
     axios
       .post("http://18.136.202.111:8000/transactions", body, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -143,7 +142,7 @@ export default function Detail() {
               className="img-fluid"
               variant="top"
               src={room?.Images[0]?.url}
-              style={{ width: "800px" }}
+              style={{ width: "800px", height: "400px" }}
             />
           </div>
           {/* baris 1 */}

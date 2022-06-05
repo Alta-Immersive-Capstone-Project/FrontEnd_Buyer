@@ -1,1 +1,1 @@
-export const URL = 'http://18.136.202.111:8000';
+export const URL = 'https://galihgpr.cloud.okteto.net';
