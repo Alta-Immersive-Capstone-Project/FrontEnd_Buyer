@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import "../styles/search.css"
 import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
-import kost from "../images/kost1.svg";
 import axios from 'axios';
 import { URL } from '../components/URL';
 import { useNavigate } from 'react-router-dom';
@@ -52,6 +51,18 @@ function Search() {
         lng: 107.613144,
     };
 
+    const makeRupiah = (input) => {
+        let txt = input.toString().split('');
+        let temp = 1;
+        for (let i = txt.length - 1; i > 0; i--) {
+            if (temp % 3 === 0) {
+                txt.splice(i, 0, '.');
+            }
+            temp++;
+        }
+        return txt.join('');
+    }
+
     return (
         <div className='container-fluid p-0'>
             <div className="row">
@@ -59,7 +70,7 @@ function Search() {
                     {house === null ? ('') : house.map((el, i) => (
                         <div key={i}>
                             <div className='d-flex my-3 align-items-center'>
-                                <img src={kost} alt="Kost" className='rounded' />
+                                <img src={el.image} alt="Kost" className='rounded image-search cursor-pointer' onClick={() => navigate(`/detail/${el.house_id}`)} />
                                 <div className='mx-4 content-search'>
                                     <div className='d-flex'>
                                         <p className='border rounded px-2 text-capitalize'>{el.type}</p>
@@ -68,7 +79,7 @@ function Search() {
                                     <p className='small text-secondary'>{el.address}</p>
                                     <div className='d-flex justify-content-between align-items-end'>
                                         <h6>4.6</h6>
-                                        <h5><strong>{el.price}</strong></h5>
+                                        <h5><strong>Rp{makeRupiah(el.price)}</strong></h5>
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +98,10 @@ function Search() {
                             {house === null ? ('') : house.map((el, i) => (
                                 <Marker key={i} position={{ lat: el.latitude, lng: el.longitude }}>
                                     <Popup>
-                                        <h4>{el.title}</h4>
+                                        <h4 className='cursor-pointer' onClick={() => navigate(`/detail/${el.house_id}`)}>{el.title}</h4>
+                                        <img src={el.image} alt="Kost" className='rounded image-search cursor-pointer' onClick={() => navigate(`/detail/${el.house_id}`)} />
+                                        <p className='text-secondary'>{el.address}</p>
+                                        <h5 className='text-end'><strong>Rp{makeRupiah(el.price)}</strong></h5>
                                     </Popup>
                                 </Marker>
                             ))}

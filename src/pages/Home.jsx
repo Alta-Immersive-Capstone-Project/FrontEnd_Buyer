@@ -47,7 +47,6 @@ function Home() {
         );
         setRooms(response.data);
         setCity(response2.data);
-        console.log(response);
       } catch (error) {
         console.log(error);
       }
@@ -57,7 +56,7 @@ function Home() {
   }, []);
 
   // dropdown price
-  useEffect(() => {}, [sort]);
+  useEffect(() => { }, [sort]);
 
   const roomsToShow = () => {
     if (sort === "LOWEST") {
@@ -108,7 +107,7 @@ function Home() {
         </ButtonGroup>
 
         <div className="d-flex justify-content-start flex-wrap gap-3">
-          {roomsToShow()?.map((el, i) => (
+          {roomsToShow().map((el, i) => (
             <div style={{ cursor: "pointer" }} key={i}>
               <Card className="mx-2" style={{ width: "18rem" }}>
                 <Card.Img
@@ -119,7 +118,9 @@ function Home() {
                     navigate(`/detail/${el.house_id}`);
                   }}
                 />
-                <Card.Body>
+                <Card.Body onClick={() => {
+                  navigate(`/detail/${el.house_id}`);
+                }}>
                   <div className="d-flex justify-content-between">
                     <Card.Title>{el.title}</Card.Title>
                     <Card.Title className="d-flex gap-2">

@@ -1,96 +1,91 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Container, Card, Button } from "react-bootstrap";
 import "../styles/order.css";
-import { URL as url } from "../components/URL";
 import { useNavigate } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 import moment from "moment";
 
 export default function Order() {
-  const bookingDetail = useSelector((state) => state.booking.booking);
-  const [ordered, setOrdered] = useState(bookingDetail);
-
   const navigate = useNavigate();
 
+  const bookingDetail = useSelector(state => state.booking.booking);
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data: response } = await axios.get(
-          `${url}/transactions`,
+    if (bookingDetail.length === 0) {
+      navigate('/history')
+    }
+  }, [bookingDetail, navigate])
 
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        );
-
-        setOrdered(response.data);
-        console.log(setOrdered);
-      } catch (error) {
-        console.log(error);
+  const makeRupiah = (input) => {
+    if (!input) {
+      return '';
+    } else {
+      let txt = input.toString().split("");
+      let temp = 1;
+      for (let i = txt.length - 1; i > 0; i--) {
+        if (temp % 3 === 0) {
+          txt.splice(i, 0, ".");
+        }
+        temp++;
       }
-    };
-
-    fetchData();
-  }, []);
+      return txt.join("");
+    }
+  };
 
   return (
     <>
       <Container className="text-start py-3">
         <h3>Payment</h3>
 
-        {ordered.map((el, i) => (
-          <div className="pt-3" style={{ cursor: "pointer" }} key={i}>
-            <Card className="p-3">
-              <div className="d-flex justify-content-start">
-                <div>
-                  <h5>Id Booking : {el.booking_id}</h5>
-                  <h5>House Boarding Name : {el.title}</h5>
-                </div>
-                <div className="ms-5">
-                  <h5>Details</h5>
-                  <div className="d-flex">
-                    <div>
-                      <p>Date of Entry</p>
-                      <p>Rental Duration</p>
-                    </div>
-                    <div className="ms-3">
-                      <p>
-                        {moment(el.check_in).format("dddd")},
-                        {moment(el.check_in).format("LL")}
-                      </p>
-                      <p>{el.duration} Month</p>
-                    </div>
+        <div className="pt-3">
+          <Card className="p-3">
+            <div className="d-flex justify-content-around">
+              <div>
+                <h6>ID Booking</h6>
+                <h5><strong>{bookingDetail.booking_id}</strong></h5>
+
+              </div>
+              <div className="ms-5">
+                <h5>Details</h5>
+                <div className="d-flex">
+                  <div>
+                    <p>Boarding House</p>
+                    <p>Date of Entry</p>
+                    <p>Rental Duration</p>
+                  </div>
+                  <div className="ms-3">
+                    <p>{bookingDetail.title}</p>
+                    <p>
+                      {moment(bookingDetail.check_in).format("dddd")}, {moment(bookingDetail.check_in).format("LL")}
+                    </p>
+                    <p>{bookingDetail.duration} Month</p>
                   </div>
                 </div>
               </div>
-            </Card>
+            </div>
+          </Card>
 
-            <div className="d-flex justify-content-end mt-3">
-              <div>
-                <h5>Total Payment : Rp. {el.price}</h5>
-                <div className="d-grid gap-2 mt-3">
-                  <Button className="btnPay" href={el.redirect_url}>
-                    Pay
-                  </Button>
-                </div>
-                <div className="d-grid gap-2 mt-3">
-                  <Button
-                    variant="outline-danger "
-                    onClick={() => {
-                      navigate(`/history`);
-                    }}
-                  >
-                    Cancel
-                  </Button>
-                </div>
+
+          <div className="d-flex justify-content-end mt-3">
+            <div>
+              <h5>Total Payment : Rp. {makeRupiah(bookingDetail.price)}</h5>
+              <div className="d-grid gap-2 mt-3">
+                <Button className="btn btn-primary" href={bookingDetail.redirect_url} >
+                  Pay
+                </Button>
+              </div>
+              <div className="d-grid gap-2 mt-3">
+                <Button
+                  variant="outline-danger"
+                  onClick={() => navigate('/history')}
+                >
+                  Cancel
+                </Button>
               </div>
             </div>
           </div>
-        ))}
+        </div>
       </Container>
     </>
   );
