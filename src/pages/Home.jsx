@@ -15,10 +15,7 @@ import "../styles/Home.css";
 
 import Star from "../images/Star.svg";
 
-import Jaksel from "../images/Jaksel.svg";
-
-// contoh image kos
-import kost1 from "../images/kost1.svg";
+import Jaksel from "../images/kota.jpg";
 
 function Home() {
   const [rooms, setRooms] = useState([]);
@@ -28,6 +25,7 @@ function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    document.title = `Home | Sewa Kost`;
     const fetchData = async () => {
       try {
         const { data: response } = await axios.get(
@@ -50,7 +48,6 @@ function Home() {
         );
         setRooms(response.data);
         setCity(response2.data);
-
       } catch (error) {
         console.log(error);
       }
@@ -60,9 +57,7 @@ function Home() {
   }, []);
 
   // dropdown price
-  useEffect(() => {
-
-  }, [sort]);
+  useEffect(() => { }, [sort]);
 
   const roomsToShow = () => {
     if (sort === "LOWEST") {
@@ -88,7 +83,6 @@ function Home() {
       );
 
       setRooms(response.data);
-
     } catch (error) {
       console.log(error);
     }
@@ -114,22 +108,29 @@ function Home() {
         </ButtonGroup>
 
         <div className="d-flex justify-content-start flex-wrap gap-3">
-          {roomsToShow()?.map((el, i) => (
+          {roomsToShow().map((el, i) => (
             <div style={{ cursor: "pointer" }} key={i}>
               <Card className="mx-2" style={{ width: "18rem" }}>
                 <Card.Img
+                  className="img-location"
                   variant="top"
-                  src={kost1}
+                  src={el.image}
                   onClick={() => {
                     navigate(`/detail/${el.house_id}`);
                   }}
                 />
-                <Card.Body>
+                <Card.Body onClick={() => {
+                  navigate(`/detail/${el.house_id}`);
+                }}>
                   <div className="d-flex justify-content-between">
                     <Card.Title>{el.title}</Card.Title>
-                    <Card.Title>
-                      <img src={Star} alt="" /> {el.rating}
+                    <Card.Title className="d-flex gap-2">
+                      <div>
+                        <img src={Star} alt="" />
+                      </div>
+                      <div>{el.rating}</div>
                     </Card.Title>
+                    <div></div>
                   </div>
                   <div className="d-flex justify-content-between gap-2">
                     <div>

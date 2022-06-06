@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Detail from "./pages/Detail";
 import Order from "./pages/Order";
 import Register from "./pages/Register.jsx";
-import Login from "./pages/login.jsx";
+import Login from "./pages/Login.jsx";
 import Reset from "./pages/Reset.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import Profile from "./pages/Profile";
@@ -28,7 +28,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<Reset />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
           <Route path="/history" element={<History />} />
           <Route path="/search" element={<Search />} />

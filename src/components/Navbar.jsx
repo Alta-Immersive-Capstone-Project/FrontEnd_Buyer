@@ -23,7 +23,7 @@ function NavbarComponent() {
   const [districtDropdown, setDistrictDropdown] = useState("District");
 
   const authToken = localStorage.getItem("token");
-
+  const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -204,9 +204,19 @@ function NavbarComponent() {
               </div>
               {authToken ? (
                 <div className="d-flex justify-content-center gap-2 me-5">
-                  <Nav.Link className="navbar-title">Profile</Nav.Link>
+                  <Nav.Link
+                    className="navbar-title"
+                    onClick={() => navigate(`/profile/${userId}`)}
+                  >
+                    Profile
+                  </Nav.Link>
                   <Nav.Link className="navbar-title">Chat</Nav.Link>
-                  <Nav.Link className="navbar-title">History</Nav.Link>
+                  <Nav.Link
+                    className="navbar-title"
+                    onClick={() => navigate("/history")}
+                  >
+                    History
+                  </Nav.Link>
                   <Nav.Link
                     className="navbar-title"
                     onClick={() => {

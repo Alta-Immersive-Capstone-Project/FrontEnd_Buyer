@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import "../styles/reset.css";
 
 function Reset() {
+  useEffect(() => {
+    document.title = `Reset Password | Sewa Kost`;
+  })
   return (
     <div className="container">
       <div className="reset-body">

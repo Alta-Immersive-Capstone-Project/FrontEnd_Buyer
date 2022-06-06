@@ -8,13 +8,14 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "../styles/detail.css";
 
 import Star from "../images/Star.svg";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { URL } from '../components/URL'
 
 export default function Detail() {
   const [namakost, setNamakost] = useState();
@@ -65,8 +66,9 @@ export default function Detail() {
   };
 
   useEffect(() => {
+    document.title = namakost ? `${namakost} | Sewa Kost` : 'Sewa Kost';
     axios
-      .get(`http://18.136.202.111:8000/houses/${params.id}`)
+      .get(`${URL}/houses/${params.id}`)
       .then((data) => {
         setNamakost(data?.data?.data?.title);
         setAddress(data.data.data.address);
@@ -82,7 +84,7 @@ export default function Detail() {
       });
 
     axios
-      .get(`http://18.136.202.111:8000/houses/${params.id}/reviews`)
+      .get(`${URL}/houses/${params.id}/reviews`)
       .then((data) => {
         setReview({
           data: data?.data?.data,
@@ -92,7 +94,7 @@ export default function Detail() {
       .catch((err) => {
         console.log(err);
       });
-  }, [params]);
+  }, [params, namakost]);
 
   const roomValue = (e) => {
     const value = e.target.value;
@@ -125,9 +127,8 @@ export default function Detail() {
       duration: parseInt(period),
     };
 
-    console.log(localStorage.getItem("token"));
     axios
-      .post("http://18.136.202.111:8000/transactions", body, {
+      .post(`${URL}/transactions`, body, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((data) => {
@@ -137,6 +138,12 @@ export default function Detail() {
         console.log(err);
       });
   };
+
+  const center = {
+    lat: -6.905977,
+    lng: 107.613144,
+  };
+
   return (
     <>
       <Container className="py-5">
@@ -146,7 +153,7 @@ export default function Detail() {
               className="img-fluid"
               variant="top"
               src={room?.Images[0]?.url}
-              style={{ width: "800px" }}
+              style={{ width: "800px", height: "400px" }}
             />
           </div>
           {/* baris 1 */}
@@ -211,7 +218,9 @@ export default function Detail() {
                 </div>
               </Form.Group>
               <div className="d-grid gap-2">
-                <Button className="btnOffering" onClick={clickAsk}>
+                <Button className="btnOffering" onClick={() => {
+                  localStorage.getItem('token') ? clickAsk() : navigate('/login');
+                }}>
                   Ask for Offer
                 </Button>
               </div>
@@ -221,15 +230,15 @@ export default function Detail() {
           {/* baris 3 */}
           <div className="d-flex justify-content-between">
             <Row>
-              <Col xs={4}>
+              <Col>
                 <h4>Description</h4>
                 <p style={{ textAlign: "justify" }}>{description}</p>
               </Col>
-              <Col xs={4} className="d-flex justify-content-end">
+              {/* <Col xs={4} className="d-flex justify-content-end">
                 <div>
                   <h4>Contact Us</h4>
                 </div>
-              </Col>
+              </Col> */}
             </Row>
           </div>
 
@@ -237,13 +246,22 @@ export default function Detail() {
           <div className="d-flex justify-content-between  py-3">
             <div>
               <h4>Location</h4>
+              <MapContainer center={center} zoom={13} scrollWheelZoom={true} zoomControl={false} attributionControl={false} className="map-detail">
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={center}>
+
+                </Marker>
+              </MapContainer>
             </div>
-            <div>
+            {/* <div>
               <h4>Nearby Facilites</h4>
               <p>Mall</p>
               <p>Jalan Tol</p>
               <p>Rumah Sakit</p>
-            </div>
+            </div> */}
           </div>
 
           {/* baris 5 */}

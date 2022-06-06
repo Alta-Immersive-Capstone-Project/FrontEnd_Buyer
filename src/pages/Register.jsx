@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import {URL} from '../components/URL'
+import { URL } from '../components/URL'
 import "../styles/register.css";
 
 function Register() {
@@ -19,6 +19,10 @@ function Register() {
   // const [confirmPassword, setConfirmPassword] = useState('');
   const [genderDisable, setGenderDisable] = useState(false);
 
+  useEffect(() => {
+    document.title = `Register | Sewa Kost`;
+  })
+
   const handleSubmit = () => {
     const body = {
       name,
@@ -31,9 +35,7 @@ function Register() {
     axios.post(`${URL}/customer`, body)
       .then(data => {
         setMessage(data.data.message);
-        setInterval(() => {
-          navigate('/login')
-        }, 1500);
+        setTimeout(navigate('/login'), 1500);
       })
       .catch(err => {
         console.log(err, ' ==> error register');

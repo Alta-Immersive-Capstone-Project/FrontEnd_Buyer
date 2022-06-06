@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { URL } from "../components/URL";
@@ -11,6 +11,10 @@ function Login() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.title = `Login | Sewa Kost`;
+  });
+
   const handleSubmit = () => {
     const body = {
       email,
@@ -21,6 +25,7 @@ function Login() {
       .post(`${URL}/login`, body)
       .then((data) => {
         localStorage.setItem("token", data.data.data.token);
+        localStorage.setItem("userId", data.data.data.user_id);
         navigate("/");
       })
       .catch((err) => {
