@@ -113,8 +113,8 @@ https://sewa-kost.vercel.app/
 
   * **Code:** 201 <br />
     **Content:** 
-    ```
-    `{
+    ```javascript
+    {
   "code": 200,
   "message": "Success get data",
   "data": [
@@ -221,11 +221,14 @@ https://sewa-kost.vercel.app/
   },
   "error": false
 }`
+```
 
 * **Success Response:**
 
   * **Code:** 201 <br />
-    **Content:** `{
+    **Content:** 
+    ```
+    `{
   "code": 200,
   "message": "Success get data",
   "data": {
