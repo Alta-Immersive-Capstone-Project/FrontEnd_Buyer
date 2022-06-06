@@ -686,11 +686,3 @@ https://sewa-kost.vercel.app/
       "message": "Access Database Error"
     }
    ```
-   
-   
- 
-    
-  
-    
-    
-    
