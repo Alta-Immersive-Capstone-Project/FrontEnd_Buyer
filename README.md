@@ -36,12 +36,11 @@ https://sewa-kost.vercel.app/
 
     **Required:**
 
-  ```javascript
     {
         name: "user",
         email: "user@gmail.com",
     }
-  ```
+  
 
 * **Success Response:**
 
@@ -59,10 +58,10 @@ https://sewa-kost.vercel.app/
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
-    `{
+    ```{
       "code": 500,
       "message": "Access Database Error"
-     }`
+     }```
 
 **Home**
 ----
@@ -115,7 +114,7 @@ https://sewa-kost.vercel.app/
     **Content:** 
     
     ```javascript
-   ` {
+    {
   "code": 200,
   "message": "Success get data",
   "data": [
@@ -136,57 +135,56 @@ https://sewa-kost.vercel.app/
     }
   ],
   "error": false
-}`
+}
     ```
  
 * **Error Response:**
 
 * **Code:** 400 BAD REQUEST <br />
     **Content:** 
-  ```
-    `{
+ ```
+    {
   "message": "ERROR Bad Request",
   "code": 400,
   "error": true,
   "data": {}
-}`
-```
+}
+ ```
     OR
     
   * **Code:** 401 MISSING TOKEN <br />
   **Content:** 
   ```
-    `{
+    {
   "message": "token missing or invalid jwt",
   "code": 401,
   "error": true,
   "data": {}
-}`
+}
 ```
     OR
     
   * **Code:** 404 NOT FOUND <br />
   **Content:** 
   ```
-    `{
+    {
       "message": "not found",
       "code": 404,
       "error": true,
       "data": {}
-    }`
-    ```
+    }
+  ```
     
     OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
-    ```
-    `{
+  ```
+    {
       "code": 500,
       "message": "Access Database Error"
-    }`
-    
-    ```
+    }
+   ```
     
     
     
@@ -209,8 +207,8 @@ https://sewa-kost.vercel.app/
 
     **Required:**
 
-  ```javascript
- `{
+ ```javascript
+ {
   "code": 200,
   "message": "Success get data",
   "data": {
@@ -230,15 +228,15 @@ https://sewa-kost.vercel.app/
     "updated_at": "2022-05-25T07:02:13:000+07:00"
   },
   "error": false
-}`
-```
+}
+  ```
 
 * **Success Response:**
 
   * **Code:** 201 <br />
     **Content:** 
-  ```
-    `{
+    ```
+    {
   "code": 200,
   "message": "Success get data",
   "data": {
@@ -258,43 +256,46 @@ https://sewa-kost.vercel.app/
     "updated_at": "2022-05-25T07:02:13:000+07:00"
   },
   "error": false
-}`
- ```
+}
+  ```
  
 * **Error Response:**
 
 * **Code:** 400 BAD REQUEST <br />
     **Content:** 
  ```
-    `{
+   {
   "message": "ERROR Bad Request",
   "code": 400,
   "error": true,
   "data": {}
-}`
+}
+ ```
     OR
     
   * **Code:** 401 MISSING TOKEN <br />
   **Content:** 
- ```
-    `{
+  
+    ```
+  {
   "message": "token missing or invalid jwt",
   "code": 401,
   "error": true,
   "data": {}
-}`
-```
+ }
+ ```
     OR
     
   * **Code:** 404 NOT FOUND <br />
   **Content:** 
+  
   ```
-    `{
+    {
       "message": "not found",
       "code": 404,
       "error": true,
       "data": {}
-    }`
+    } 
   ```
     
     OR
@@ -302,10 +303,10 @@ https://sewa-kost.vercel.app/
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
    ```
-    `{
+    {
       "code": 500,
       "message": "Access Database Error"
-    }`
+    }
    ```
     
     
@@ -322,7 +323,7 @@ https://sewa-kost.vercel.app/
     **Required:**
 
   ```javascript
- `{
+ {
   "code": 200,
   "data": [
     {
@@ -341,8 +342,7 @@ https://sewa-kost.vercel.app/
     "two": 0
   },
   "total_rating": 4
-}`
-
+}
 ```
 
 * **Success Response:**
@@ -350,7 +350,7 @@ https://sewa-kost.vercel.app/
   * **Code:** 201 <br />
     **Content:** 
  ```  
-`{
+{
   "code": 200,
   "data": [
     {
@@ -369,44 +369,45 @@ https://sewa-kost.vercel.app/
     "two": 0
   },
   "total_rating": 4
-}`
-   ```
+}
+  ```
  
 * **Error Response:**
 
 * **Code:** 400 BAD REQUEST <br />
     **Content:** 
-  ```
-    `{
+ ```
+    {
   "message": "ERROR Bad Request",
   "code": 400,
   "error": true,
   "data": {}
-}`
+}
  ```
     OR
     
   * **Code:** 401 MISSING TOKEN <br />
   **Content:** 
+
   ```
-    `{
+  {
   "message": "token missing or invalid jwt",
   "code": 401,
   "error": true,
   "data": {}
-}`
+}
 ```
     OR
     
   * **Code:** 404 NOT FOUND <br />
   **Content:** 
   ```
-    `{
+    {
       "message": "not found",
       "code": 404,
       "error": true,
       "data": {}
-    }`
+    }
    ```
     
     OR
@@ -414,10 +415,10 @@ https://sewa-kost.vercel.app/
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
    ```
-    `{
+    {
       "code": 500,
       "message": "Access Database Error"
-    }`
+    }
     ```
     
     
@@ -439,13 +440,13 @@ https://sewa-kost.vercel.app/
     **Required:**
 
   ```javascript
- `{
+ {
   "room_id": 1,
   "house_id": 1,
   "price": 1000000,
   "check_in": 1653440800207,
   "duration": 7
-}`
+}
 
 ```
 
@@ -454,7 +455,7 @@ https://sewa-kost.vercel.app/
   * **Code:** 201 <br />
     **Content:**
   ```   
-  `{
+  {
   "code": 200,
   "data": {
     "booking_id": "LK-2117-453654642",
@@ -470,44 +471,45 @@ https://sewa-kost.vercel.app/
     "created_at": "2022-06-04T13:30:05.36+07:00"
   },
   "message": "Success Created Transaction"
-}`
-    ```
+  }
+   ```
  
 * **Error Response:**
 
 * **Code:** 400 BAD REQUEST <br />
     **Content:** 
   ```
-    `{
+  {
   "message": "ERROR Bad Request",
   "code": 400,
   "error": true,
   "data": {}
-}`
-```
+  }
+  ```
     OR
     
   * **Code:** 401 MISSING TOKEN <br />
   **Content:** 
+
   ```
-    `{
+  {
   "message": "token missing or invalid jwt",
   "code": 401,
   "error": true,
   "data": {}
-}`
-```
+  }
+  ```
     OR
     
   * **Code:** 404 NOT FOUND <br />
   **Content:** 
   ```
-    `{
+    {
       "message": "not found",
       "code": 404,
       "error": true,
       "data": {}
-    }`
+    }
    ```
     
     OR
@@ -515,11 +517,11 @@ https://sewa-kost.vercel.app/
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
    ```
-    `{
+    {
       "code": 500,
       "message": "Access Database Error"
-    }`
-      ```
+    }
+    ```
     
    **History Page**
 ----
@@ -563,8 +565,8 @@ https://sewa-kost.vercel.app/
 
   * **Code:** 201 <br />
     **Content:**
-   ```
-`{
+  ```
+  {
   "code": "200,",
   "data": [
     {
@@ -584,36 +586,36 @@ https://sewa-kost.vercel.app/
 * **Code:** 400 BAD REQUEST <br />
     **Content:** 
   ```
-    `{
+  {
   "message": "ERROR Bad Request",
   "code": 400,
   "error": true,
   "data": {}
-}`
-```
+  }
+  ```
     OR
     
   * **Code:** 401 MISSING TOKEN <br />
   **Content:** 
   ```
-    `{
+  {
   "message": "token missing or invalid jwt",
   "code": 401,
   "error": true,
   "data": {}
-}`
-```
+  }
+  ```
     OR
     
   * **Code:** 404 NOT FOUND <br />
   **Content:** 
   ```
-    `{
+    {
       "message": "not found",
       "code": 404,
       "error": true,
       "data": {}
-    }`
+    }
    ```
     
     OR
@@ -621,10 +623,10 @@ https://sewa-kost.vercel.app/
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
    ```
-    `{
+    {
       "code": 500,
       "message": "Access Database Error"
-    }`
+    }
    ```
     
     **Register**
@@ -653,7 +655,7 @@ https://sewa-kost.vercel.app/
   "phone": "08134567",
   "password": "123456",
   "gender": "male"
-}
+  }
   ```
 
 * **Success Response:**
@@ -661,7 +663,7 @@ https://sewa-kost.vercel.app/
   * **Code:** 201 <br />
     **Content:** 
    ```
-    `{
+    {
     "code": 201,
       "message": "Success Register",
       "data": {
@@ -671,17 +673,18 @@ https://sewa-kost.vercel.app/
         "phone": "08134567",
         "gender": "male"
       }
-    }`
+    }
     ```
  
 * **Error Response:**
-```
+
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
-    `{
+    ```
+    {
       "code": 500,
       "message": "Access Database Error"
-    }`
+    }
    ```
    
    
