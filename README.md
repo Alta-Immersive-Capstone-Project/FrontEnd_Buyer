@@ -46,12 +46,12 @@ https://sewa-kost.vercel.app/
 
     * **Code:** 200 <br />
     **Content:** 
-    ```{
+  ```{
   "code": 200,
   "message": "Success Login",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHBpcmVkIjoxNjUxMTkyMjUwLCJ1c2VySWQiOjF9.p7TgrQ3phLHYB10pO4XsjCHBUTKVvrH34OqX4XPzyCI"
-}
-    ```
+  "token":     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHBpcmVkIjoxNjUxMTkyMjUwLCJ1c2VySWQiOjF9.p7TgrQ3phLHYB10pO4XsjCHBUTKVvrH34OqX4XPzyCI"
+   }
+   ```
  
 * **Error Response:**
 
@@ -113,7 +113,7 @@ https://sewa-kost.vercel.app/
   * **Code:** 201 <br />
     **Content:** 
     
-    ```javascript
+  ```javascript
     {
   "code": 200,
   "message": "Success get data",
@@ -135,7 +135,7 @@ https://sewa-kost.vercel.app/
     }
   ],
   "error": false
-}
+  }
     ```
  
 * **Error Response:**
@@ -235,7 +235,7 @@ https://sewa-kost.vercel.app/
 
   * **Code:** 201 <br />
     **Content:** 
-    ```
+  ```
     {
   "code": 200,
   "message": "Success get data",
@@ -256,7 +256,7 @@ https://sewa-kost.vercel.app/
     "updated_at": "2022-05-25T07:02:13:000+07:00"
   },
   "error": false
-}
+  }
   ```
  
 * **Error Response:**
@@ -269,14 +269,14 @@ https://sewa-kost.vercel.app/
   "code": 400,
   "error": true,
   "data": {}
-}
- ```
-    OR
+  }
+  ```
+ OR
     
   * **Code:** 401 MISSING TOKEN <br />
   **Content:** 
   
-    ```
+  ```
   {
   "message": "token missing or invalid jwt",
   "code": 401,
@@ -284,7 +284,7 @@ https://sewa-kost.vercel.app/
   "data": {}
  }
  ```
-    OR
+  OR
     
   * **Code:** 404 NOT FOUND <br />
   **Content:** 
@@ -298,7 +298,7 @@ https://sewa-kost.vercel.app/
     } 
   ```
     
-    OR
+  OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
@@ -384,7 +384,7 @@ https://sewa-kost.vercel.app/
   "data": {}
 }
  ```
-    OR
+  OR
     
   * **Code:** 401 MISSING TOKEN <br />
   **Content:** 
@@ -397,7 +397,7 @@ https://sewa-kost.vercel.app/
   "data": {}
 }
 ```
-    OR
+  OR
     
   * **Code:** 404 NOT FOUND <br />
   **Content:** 
@@ -410,7 +410,7 @@ https://sewa-kost.vercel.app/
     }
    ```
     
-    OR
+  OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
@@ -642,7 +642,7 @@ https://sewa-kost.vercel.app/
   
 *  **URL Params**
 
-    None
+    `None`
 
 * **Data Params**
 
