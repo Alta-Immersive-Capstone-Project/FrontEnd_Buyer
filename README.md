@@ -112,7 +112,9 @@ https://sewa-kost.vercel.app/
 * **Success Response:**
 
   * **Code:** 201 <br />
-    **Content:** `{
+    **Content:** 
+    ```
+    `{
   "code": 200,
   "message": "Success get data",
   "data": [
