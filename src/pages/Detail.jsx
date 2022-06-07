@@ -42,6 +42,9 @@ export default function Detail() {
   //   return allroom[dami] || {};
   // }, [allroom, dami]);
 
+  console.log("data room", room);
+  console.log("dami", dami);
+
   const params = useParams();
 
   const average = () => {
@@ -96,7 +99,7 @@ export default function Detail() {
   const roomValue = (e) => {
     const value = e.target.value;
     // menambahkan data setiap room di dalam setRoom
-    setRoom(allroom[parseInt(value.substr(value.length - 1)) - 1]);
+    setRoom(allroom[value]);
     setDami(value);
   };
 
@@ -187,8 +190,8 @@ export default function Detail() {
                   value={dami}
                 >
                   {allroom.map((el, i) => (
-                    <option value={"Room " + el.id} key={i}>
-                      Room {i + 1}
+                    <option value={i} key={i}>
+                      Room {el.id}
                     </option>
                   ))}
                 </Form.Select>
